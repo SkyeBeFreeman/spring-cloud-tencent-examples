@@ -1,0 +1,35 @@
+server:
+  port: 48080
+spring:
+  application:
+    name: polaris-circuitbreaker-example-a
+  cloud:
+    polaris:
+      address: grpc://183.47.111.80:8091
+      namespace: default
+      enabled: true
+      circuitbreaker:
+        enabled: true
+feign:
+  hystrix:
+    enabled: true
+  compression:
+    request:
+      enabled: false
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+    response:
+      enabled: false
+ribbon:
+  polaris:
+    enabled: true
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  OkToRetryOnAllOperations: false
+  ConnectionTimeout: 1000
+  ReadTimeout: 1000
+  eager-load:
+    enabled: on
+
+serivceB:
+  url: http://localhost:48081

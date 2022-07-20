@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <version>2.3.12.RELEASE</version>
+    </parent>
+
+    <artifactId>spring-cloud-tencent-examples</artifactId>
+    <groupId>com.skyebefreeman.examples</groupId>
+    <version>${revision}</version>
+    <packaging>pom</packaging>
+    <name>Spring Cloud Tencent Examples</name>
+    <description>Examples of Spring Cloud Tencent</description>
+
+    <modules>
+        <module>polaris-discovery-example</module>
+        <module>polaris-ratelimit-example</module>
+        <module>polaris-circuitbreaker-example</module>
+        <module>polaris-gateway-example</module>
+        <module>polaris-config-example</module>
+        <module>polaris-router-example</module>
+        <module>metadata-transfer-example</module>
+        <module>polaris-router-grayrelease-example</module>
+    </modules>
+
+    <properties>
+        <!-- Project revision -->
+        <revision>1.0.0-SNAPSHOT</revision>
+
+        <spring.cloud.tencent.version>1.6.1-Hoxton.SR12-SNAPSHOT</spring.cloud.tencent.version>
+
+        <!-- Spring Cloud -->
+        <spring.cloud.version>Hoxton.SR12</spring.cloud.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Cloud Tencent Dependencies -->
+            <dependency>
+                <groupId>com.tencent.cloud</groupId>
+                <artifactId>spring-cloud-tencent-dependencies</artifactId>
+                <version>${spring.cloud.tencent.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud Dependencies -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <parameters>true</parameters>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <inherited>true</inherited>
+                <configuration>
+                    <forkCount>1</forkCount>
+                    <reuseForks>false</reuseForks>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flatten-maven-plugin.version}</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://maven.apache.org/POM/4.0.0"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>spring-cloud-tencent-examples</artifactId>
+		<groupId>com.skyebefreeman.examples</groupId>
+		<version>${revision}</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>polaris-circuitbreaker-example</artifactId>
+	<name>Polaris Circuit Breaker Example</name>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>polaris-circuitbreaker-example-a</module>
+		<module>polaris-circuitbreaker-example-b</module>
+		<module>polaris-circuitbreaker-example-b2</module>
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.tencent.cloud</groupId>
+			<artifactId>spring-cloud-starter-tencent-polaris-discovery</artifactId>
+		</dependency>
+	</dependencies>
+
+</project>
