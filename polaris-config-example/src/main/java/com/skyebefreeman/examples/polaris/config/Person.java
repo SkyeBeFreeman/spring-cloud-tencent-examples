@@ -19,6 +19,7 @@
 package com.skyebefreeman.examples.polaris.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Component;
  * @author lepdou 2022-03-28
  */
 @Component
+@RefreshScope
 @ConfigurationProperties(prefix = "teacher")
 public class Person {
 
