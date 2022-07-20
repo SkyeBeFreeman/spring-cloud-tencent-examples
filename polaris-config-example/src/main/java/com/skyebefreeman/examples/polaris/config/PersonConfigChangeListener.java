@@ -18,9 +18,11 @@
 
 package com.skyebefreeman.examples.polaris.config;
 
+import java.util.Set;
+
 import com.tencent.cloud.polaris.config.annotation.PolarisConfigKVFileChangeListener;
 import com.tencent.cloud.polaris.config.listener.ConfigChangeEvent;
-import java.util.Set;
+
 import org.springframework.stereotype.Component;
 
 /**

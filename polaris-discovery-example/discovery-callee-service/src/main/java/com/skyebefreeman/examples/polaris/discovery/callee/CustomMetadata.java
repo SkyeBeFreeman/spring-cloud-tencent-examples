@@ -18,9 +18,11 @@
 
 package com.skyebefreeman.examples.polaris.discovery.callee;
 
-import com.tencent.cloud.common.spi.InstanceMetadataProvider;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.tencent.cloud.common.spi.InstanceMetadataProvider;
+
 import org.springframework.stereotype.Component;
 
 /**

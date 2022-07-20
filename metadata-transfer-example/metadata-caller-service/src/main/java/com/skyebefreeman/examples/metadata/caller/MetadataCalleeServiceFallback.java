@@ -17,8 +17,10 @@
 
 package com.skyebefreeman.examples.metadata.caller;
 
-import com.google.common.collect.Maps;
 import java.util.Map;
+
+import com.google.common.collect.Maps;
+
 import org.springframework.stereotype.Component;
 
 /**

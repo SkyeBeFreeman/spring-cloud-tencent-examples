@@ -18,6 +18,7 @@
 package com.skyebefreeman.examples.metadata.caller;
 
 import java.util.Map;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
