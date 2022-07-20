@@ -20,8 +20,10 @@ package com.skyebefreeman.examples.ratelimit.callee;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -76,10 +78,12 @@ public class BusinessController {
 					ResponseEntity<String> entity = restTemplate.getForEntity("http://" + appName + "/business/info",
 							String.class);
 					builder.append(entity.getBody() + "\n");
-				} catch (RestClientException e) {
+				}
+				catch (RestClientException e) {
 					if (e instanceof TooManyRequests) {
 						builder.append("TooManyRequests " + index.incrementAndGet() + "\n");
-					} else {
+					}
+					else {
 						throw e;
 					}
 				}
@@ -102,7 +106,8 @@ public class BusinessController {
 		if (lastTime != 0) {
 			LOG.info("Current timestamp:" + currentTimestamp + ", diff from last timestamp:" + (currentTimestamp
 					- lastTime));
-		} else {
+		}
+		else {
 			LOG.info("Current timestamp:" + currentTimestamp);
 		}
 		lastTimestamp.set(currentTimestamp);
