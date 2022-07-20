@@ -12,11 +12,6 @@ spring:
         enabled: true
         rejectRequestTipsFilePath: reject-tips.html
         maxQueuingTime: 500
-      statReporter:
-        enable: true
-        plugin:
-          prometheus:
-            pushgatewayAddress: 10.0.7.125:9091
 
 management:
   endpoints:

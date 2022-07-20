@@ -12,8 +12,3 @@ spring:
       address: grpc://183.47.111.80:8091
       namespace: default
       enabled: true
-      statReporter:
-        enable: true
-        plugin:
-          prometheus:
-            pushgatewayAddress: 10.0.7.125:9091
