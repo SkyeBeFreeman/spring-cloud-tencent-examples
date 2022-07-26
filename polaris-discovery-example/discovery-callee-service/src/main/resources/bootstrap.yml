@@ -11,22 +11,10 @@ spring:
       discovery:
         enabled: true
         register: true
+      stat:
+        enabled: true
+        port: 28082
     tencent:
       metadata:
         content:
           region: shanghai
-#    consul:
-#      port: 8500
-#      host: 127.0.0.1
-#      enabled: true
-#      discovery:
-#        enabled: true
-#        register: true
-#        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
-#        service-name: ${spring.application.name}
-#        ip-address: localhost
-#        prefer-ip-address: true
-#eureka:
-#  client:
-#    serviceUrl:
-#      defaultZone: http://127.0.0.1:7654/eureka/
