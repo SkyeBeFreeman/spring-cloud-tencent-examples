@@ -28,7 +28,6 @@ import org.springframework.stereotype.Component;
  * @author lepdou 2022-03-28
  */
 @Component
-@RefreshScope
 @ConfigurationProperties(prefix = "teacher")
 public class Person {
 
