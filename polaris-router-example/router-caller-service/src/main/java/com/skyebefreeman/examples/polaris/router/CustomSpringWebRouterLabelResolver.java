@@ -13,44 +13,35 @@
  * under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
  */
 
 package com.skyebefreeman.examples.polaris.router;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.gson.Gson;
-import com.tencent.cloud.polaris.router.spi.RouterLabelResolver;
-import feign.RequestTemplate;
+import com.tencent.cloud.polaris.router.spi.SpringWebRouterLabelResolver;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Component;
 
 /**
- *
- * Customize the business tag information obtained from the request
- *
- *@author lepdou 2022-05-12
+ * Custom router label resolver for spring web request.
+ * @author lepdou 2022-07-20
  */
 @Component
-public class CustomRouterLabelResolver implements RouterLabelResolver {
+public class CustomSpringWebRouterLabelResolver implements SpringWebRouterLabelResolver {
 	private final Gson gson = new Gson();
 
 	@Override
-	public Map<String, String> resolve(RequestTemplate requestTemplate) {
-		Map<String, String> labels = new HashMap<>();
-
-		User user = gson.fromJson(new String(requestTemplate.body()), User.class);
-
-		labels.put("user", user.getName());
-
-		return labels;
+	public int getOrder() {
+		return 0;
 	}
 
 	@Override
-	public Map<String, String> resolve(HttpRequest request, byte[] body) {
+	public Map<String, String> resolve(HttpRequest request, byte[] body, Set<String> expressionLabelKeys) {
 		Map<String, String> labels = new HashMap<>();
 		User user = gson.fromJson(new String(body), User.class);
 
@@ -58,9 +49,4 @@ public class CustomRouterLabelResolver implements RouterLabelResolver {
 		return labels;
 	}
 
-
-	@Override
-	public int getOrder() {
-		return 0;
-	}
 }
