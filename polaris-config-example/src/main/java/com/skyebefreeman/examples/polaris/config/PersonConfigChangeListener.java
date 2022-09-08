@@ -35,7 +35,6 @@ public final class PersonConfigChangeListener {
 
 	/**
 	 * PolarisConfigKVFileChangeListener Example .
-	 *
 	 * @param event instance of {@link ConfigChangeEvent}
 	 */
 	@PolarisConfigKVFileChangeListener(interestedKeyPrefixes = "teacher")
@@ -46,5 +45,4 @@ public final class PersonConfigChangeListener {
 			System.out.printf("%s = %s \n", changedKey, event.getChange(changedKey));
 		}
 	}
-
 }

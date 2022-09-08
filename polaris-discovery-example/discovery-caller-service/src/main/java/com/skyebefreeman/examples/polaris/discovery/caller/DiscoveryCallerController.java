@@ -41,7 +41,6 @@ public class DiscoveryCallerController {
 
 	/**
 	 * Get sum of two value.
-	 *
 	 * @param value1 value 1
 	 * @param value2 value 2
 	 * @return sum
@@ -53,7 +52,6 @@ public class DiscoveryCallerController {
 
 	/**
 	 * Get information of callee.
-	 *
 	 * @return information of callee
 	 */
 	@GetMapping("/rest")
@@ -65,12 +63,10 @@ public class DiscoveryCallerController {
 
 	/**
 	 * health check.
-	 *
 	 * @return health check info
 	 */
 	@GetMapping("/healthCheck")
 	public String healthCheck() {
 		return "pk ok";
 	}
-
 }

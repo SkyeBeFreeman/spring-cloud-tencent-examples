@@ -14,7 +14,13 @@ spring:
       stat:
         enabled: true
         port: 28082
+    #        pushgateway:
+    #          enabled: true
+    #          address: 127.0.0.1:9091
     tencent:
       metadata:
         content:
           region: shanghai
+      rpc-enhancement:
+        reporter:
+          enabled: true

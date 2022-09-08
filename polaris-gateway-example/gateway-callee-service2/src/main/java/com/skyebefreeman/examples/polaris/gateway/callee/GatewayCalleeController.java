@@ -70,5 +70,4 @@ public class GatewayCalleeController {
 		LOG.info(URLDecoder.decode(metadataStr, UTF_8));
 		return URLDecoder.decode(metadataStr, UTF_8);
 	}
-
 }

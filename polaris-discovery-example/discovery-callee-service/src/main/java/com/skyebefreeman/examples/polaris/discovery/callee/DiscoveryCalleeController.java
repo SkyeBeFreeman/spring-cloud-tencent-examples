@@ -43,7 +43,6 @@ public class DiscoveryCalleeController {
 
 	/**
 	 * Get information of callee.
-	 *
 	 * @return information of callee
 	 */
 	@GetMapping("/info")
@@ -54,7 +53,6 @@ public class DiscoveryCalleeController {
 
 	/**
 	 * Get sum of two value.
-	 *
 	 * @param value1 value 1
 	 * @param value2 value 2
 	 * @return sum
@@ -64,5 +62,4 @@ public class DiscoveryCalleeController {
 		LOG.info("Discovery Service Callee is called and sum is {}.", value1 + value2);
 		return value1 + value2;
 	}
-
 }

@@ -5,7 +5,7 @@
 This example shows how to use ```spring-cloud-starter-tencent-metadata-transfer``` in Spring Cloud project for its
 features.
 
-This example contains ```metadata-callee-service```、```metadata-caller-service```.
+This example contains ```metadata-frontend```、```metadata-middle```、```metadata-backend```.
 
 ## Instruction
 
@@ -25,9 +25,10 @@ spring:
 ### Maven Dependency
 
 ```xml
+
 <dependency>
-    <groupId>com.tencent.cloud</groupId>
-    <artifactId>spring-cloud-starter-tencent-metadata-transfer</artifactId>
+	<groupId>com.tencent.cloud</groupId>
+	<artifactId>spring-cloud-starter-tencent-metadata-transfer</artifactId>
 </dependency>
 ```
 
@@ -41,8 +42,10 @@ Reference to [Polaris Getting Started](https://github.com/PolarisMesh/polaris#ge
 
 - IDEA Launching
 
-- ```spring-cloud-tencent-examples/metadata-transfer-example/metadata-callee-service```‘s```MetadataCalleeService```
-- ```spring-cloud-tencent-examples/metadata-transfer-example/metadata-caller-service```'s```MetadataCallerService```
+- ```spring-cloud-tencent-examples/metadata-transfer-example/metadata-frontend```'s ```MetadataFrontendService```
+- ```spring-cloud-tencent-examples/metadata-transfer-example/metadata-middle```'s ```MetadataMiddleService```
+- ```spring-cloud-tencent-examples/metadata-transfer-example/metadata-backend```'s ```MetadataBackendService```
+
 
 - Maven Package Launching
 
@@ -52,7 +55,7 @@ Execute under ```spring-cloud-tencent-examples/metadata-transfer-example```
 mvn clean package
 ```
 
-Then find the jars under ```metadata-callee-service```、```metadata-caller-service```, and run it:
+Then find the jars under ```metadata-frontend```、```metadata-middle```、```metadata-backend```, and run it:
 
 ```
 java -jar ${app.jar}
@@ -60,10 +63,10 @@ java -jar ${app.jar}
 
 Launch application, change ${app.jar} to jar's package name.
 
-
 ### Metadata Configuration
 
-In the ```bootstrap.yml``` configuration file of the ```spring-cloud-tencent-examples/metadata-transfer-example/metadata-caller-service``` project
+- In the ```bootstrap.yml``` configuration file of
+  the ```spring-cloud-tencent-examples/metadata-transfer-example/metadata-frontend``` project
 
 ```yaml
 spring:
@@ -75,11 +78,40 @@ spring:
           # Example: intransitive
           CUSTOM-METADATA-KEY-LOCAL: CUSTOM-VALUE-LOCAL
           # Example: transitive
-          CUSTOM-METADATA-KEY-TRANSITIVE: CUSTOM-VALUE-TRANSITIVE
+          CUSTOM-METADATA-KEY-TRANSITIVE: CUSTOM-VALUE-TRANSITIVE-FRONTEND
+          # Example: disposable
+          CUSTOM-METADATA-KEY-DISPOSABLE: CUSTOM-VALUE-DISPOSABLE-FRONTEND
         # Assigned which metadata key-value will be passed along the link
         transitive:
           - CUSTOM-METADATA-KEY-TRANSITIVE
+        # Specify which metadata key value will be passed only once (one-step)
+        disposable:
+          - CUSTOM-METADATA-KEY-DISPOSABLE
 
+```
+
+- In the ```bootstrap.yml``` configuration file of
+  the ```spring-cloud-tencent-examples/metadata-transfer-example/metadata-middle``` project
+
+```yaml
+spring:
+  cloud:
+    tencent:
+      metadata:
+        # Defined your metadata keys & values
+        content:
+          # Example: intransitive
+          CUSTOM-METADATA-KEY-LOCAL-2: CUSTOM-VALUE-LOCAL-2
+          # Example: transitive
+          CUSTOM-METADATA-KEY-TRANSITIVE-2: CUSTOM-VALUE-TRANSITIVE-2
+          # Example: disposable
+          CUSTOM-METADATA-KEY-DISPOSABLE: CUSTOM-VALUE-DISPOSABLE-MIDDLE
+        # Assigned which metadata key-value will be passed along the link
+        transitive:
+          - CUSTOM-METADATA-KEY-TRANSITIVE-2
+        # Specify which metadata key value will be passed only once (one-step)
+        disposable:
+          - CUSTOM-METADATA-KEY-DISPOSABLE
 ```
 
 ### Verify
@@ -94,25 +126,80 @@ Expected return rate
 
 ```
 {
-  "caller-metadata-contents": {
-    "CUSTOM-METADATA-KEY-TRANSITIVE": "CUSTOM-VALUE-TRANSITIVE",
-    "CUSTOM-METADATA-KEY-LOCAL": "CUSTOM-VALUE-LOCAL"
+  "frontend-transitive-metadata": {
+    "CUSTOM-METADATA-KEY-TRANSITIVE": "CUSTOM-VALUE-TRANSITIVE-FRONTEND"
   },
-  "callee-transitive-metadata": {
-    "CUSTOM-METADATA-KEY-TRANSITIVE": "CUSTOM-VALUE-TRANSITIVE"
+  "frontend-upstream-disposable-metadata": {
   },
-  "caller-transitive-metadata": {
-    "CUSTOM-METADATA-KEY-TRANSITIVE": "CUSTOM-VALUE-TRANSITIVE"
+  "frontend-local-disposable-metadata": {
+    "CUSTOM-METADATA-KEY-DISPOSABLE": "CUSTOM-VALUE-DISPOSABLE-FRONTEND"
+  },
+  
+  "middle-transitive-metadata": {
+    "CUSTOM-METADATA-KEY-TRANSITIVE": "CUSTOM-VALUE-TRANSITIVE-FRONTEND",
+    "CUSTOM-METADATA-KEY-TRANSITIVE-2": "CUSTOM-VALUE-TRANSITIVE-2"
+  },
+  "middle-upstream-disposable-metadata": {
+    "CUSTOM-METADATA-KEY-DISPOSABLE": "CUSTOM-VALUE-DISPOSABLE-FRONTEND"
+  },
+  "middle-local-disposable-metadata": {
+    "CUSTOM-METADATA-KEY-DISPOSABLE": "CUSTOM-VALUE-DISPOSABLE-MIDDLE"
+  },
+  
+  "backend-transitive-metadata": {
+    "CUSTOM-METADATA-KEY-TRANSITIVE": "CUSTOM-VALUE-TRANSITIVE-FRONTEND",
+    "CUSTOM-METADATA-KEY-TRANSITIVE-2": "CUSTOM-VALUE-TRANSITIVE-2"
+  },
+  "backend-upstream-disposable-metadata": {
+    "CUSTOM-METADATA-KEY-DISPOSABLE": "CUSTOM-VALUE-DISPOSABLE-MIDDLE"
+  },
+  "backend-local-disposable-metadata": {
   }
 }
 ```
 
 Response value description
 
-- Key `caller-metadata-contents` represents all metadata configured by default in the `metadata-caller-service` project.
-- Key `caller-transitive-metadata` represents the list of metadata that can be passed in the link specified in the `metadata-caller-service` item.
-- Key `callee-transitive-metadata` represents the list of upstream metadata passed when the `metadata-callee-service` project is called by `metadata-caller-service`.
+> `*` (asterisk), representing `frontend`, `middle`, `backend` in the example.
+
+- Key `*-transitive-metadata` represents all the passable (fully linked) metadata configured by default in the service.
+- Key `*-upstream-disposable-metadata` indicates the one-time transmissible metadata obtained from upstream requests in
+  the service.
+- Key `*-local-disposable-metadata` indicates the one-time metadata passed downstream as configured by the current
+  service.
+
+### How to get the passed metadata via Api
+
+- Get the metadata passed globally
+
+```
+MetadataContext context=MetadataContextHolder.get();
+Map<String, String> customMetadataMap=context.getFragmentContext(MetadataContext.FRAGMENT_TRANSITIVE);
+
+customMetadataMap.forEach((key,value)->{
+    // ...
+});
+```
+
+- Get disposable(one-time) metadata passed from upstream
+
+```
+Map<String, String> upstreamDisposableMetadatas=MetadataContextHolder.getAllDisposableMetadata(true);
+upstreamDisposableMetadatas.forEach((key,value)->{
+	// ...
+});
+```
+
+- Get disposable(one-time) metadata for local configuration
+
+```
+Map<String, String> localDisposableMetadatas=MetadataContextHolder.getAllDisposableMetadata(false);
+localDisposableMetadatas.forEach((key,value)->{
+	// ...
+});
+```
 
 ### Wiki Reference
 
-See [Spring Cloud Tencent Metadata Transfer Usage Document](https://github.com/Tencent/spring-cloud-tencent/wiki/Spring-Cloud-Tencent-Metadata-Transfer-Usage-Document) for more reference .
+See [Spring Cloud Tencent Metadata Transfer Usage Document](https://github.com/Tencent/spring-cloud-tencent/wiki/Spring-Cloud-Tencent-Metadata-Transfer-Usage-Document)
+for more reference.

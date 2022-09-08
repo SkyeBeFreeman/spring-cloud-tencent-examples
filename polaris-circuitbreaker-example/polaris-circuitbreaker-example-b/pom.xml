@@ -18,6 +18,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.tencent.cloud</groupId>
+            <artifactId>spring-cloud-starter-tencent-polaris-discovery</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

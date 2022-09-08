@@ -52,17 +52,15 @@ public class BusinessController {
 	private static final Logger LOG = LoggerFactory.getLogger(BusinessController.class);
 
 	private final AtomicInteger index = new AtomicInteger(0);
-
+	private final AtomicLong lastTimestamp = new AtomicLong(0);
 	@Autowired
 	private RestTemplate restTemplate;
-
 	@Value("${spring.application.name}")
 	private String appName;
 
-	private AtomicLong lastTimestamp = new AtomicLong(0);
-
 	/**
 	 * Get information.
+	 *
 	 * @return information
 	 */
 	@GetMapping("/info")
@@ -71,52 +69,25 @@ public class BusinessController {
 	}
 
 	/**
-	 * Synchronize invoke /info 30 times per second.
-	 * @param sourceHeaders source headers
-	 * @return information
+	 * Get information 30 times per 1 second.
+	 *
+	 * @return result of 30 calls.
+	 * @throws InterruptedException exception
 	 */
 	@GetMapping("/invoke")
-	public String invokeInfo(@RequestHeader MultiValueMap<String, String> sourceHeaders) {
-		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < 30; i++) {
-			try {
-				HttpHeaders headers  = new HttpHeaders(sourceHeaders);
-				HttpEntity<JSONObject> httpEntity = new HttpEntity<>(headers);
-				ResponseEntity<String> exchange = restTemplate.exchange("http://" + appName + "/business/info", HttpMethod.GET, httpEntity, String.class);
-				builder.append(exchange.getBody());
-			}
-			catch (RestClientException e) {
-				if (e instanceof TooManyRequests) {
-					builder.append("TooManyRequests ").append(index.incrementAndGet()).append("\n");
-				}
-				else {
-					throw e;
-				}
-			}
-		}
-		return builder.toString();
-	}
-
-	/**
-	 * Asynchronous invoke /info 30 times per second.
-	 * @param sourceHeaders source headers
-	 * @return information
-	 */
-	@GetMapping("/async/invoke")
-	public String asyncInvokeInfo(@RequestHeader MultiValueMap<String, String> sourceHeaders) throws InterruptedException {
+	public String invokeInfo() throws InterruptedException {
 		StringBuffer builder = new StringBuffer();
 		CountDownLatch count = new CountDownLatch(30);
 		for (int i = 0; i < 30; i++) {
 			new Thread(() -> {
 				try {
-					HttpHeaders headers  = new HttpHeaders(sourceHeaders);
-					HttpEntity<JSONObject> httpEntity = new HttpEntity<>(headers);
-					ResponseEntity<String> exchange = restTemplate.exchange("http://" + appName + "/business/info", HttpMethod.GET, httpEntity, String.class);
-					builder.append(exchange.getBody()).append("\n");
+					ResponseEntity<String> entity = restTemplate.getForEntity("http://" + appName + "/business/info",
+							String.class);
+					builder.append(entity.getBody() + "\n");
 				}
 				catch (RestClientException e) {
 					if (e instanceof TooManyRequests) {
-						builder.append("TooManyRequests ").append(index.incrementAndGet()).append("\n");
+						builder.append("TooManyRequests " + index.incrementAndGet() + "\n");
 					}
 					else {
 						throw e;
@@ -129,9 +100,9 @@ public class BusinessController {
 		return builder.toString();
 	}
 
-
 	/**
 	 * Get information with unirate.
+	 *
 	 * @return information
 	 */
 	@GetMapping("/unirate")
