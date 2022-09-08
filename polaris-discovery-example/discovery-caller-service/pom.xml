@@ -23,6 +23,12 @@
             <artifactId>spring-cloud-starter-tencent-polaris-discovery</artifactId>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>com.tencent.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-tencent-all</artifactId>-->
+<!--            <type>pom</type>-->
+<!--        </dependency>-->
+
         <!--        <dependency>-->
         <!--            <groupId>org.springframework.cloud</groupId>-->
         <!--            <artifactId>spring-cloud-starter-consul-discovery</artifactId>-->
