@@ -16,7 +16,7 @@ spring:
       namespace: default
       enabled: true
       discovery:
-        register: false
+        register: true
     gateway:
       discovery:
         locator:
@@ -63,5 +63,5 @@ spring:
 logging:
   level:
     com.tencent.cloud.plugin.gateway: debug
-    org.springframework.cloud.gateway: info
+    org.springframework.cloud.gateway: debug
     com.tencent.cloud.polaris: debug
