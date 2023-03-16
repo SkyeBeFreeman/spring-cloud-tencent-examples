@@ -8,7 +8,7 @@
     <parent>
         <artifactId>spring-boot-starter-parent</artifactId>
         <groupId>org.springframework.boot</groupId>
-        <version>3.0.2</version>
+        <version>3.0.3</version>
     </parent>
 
     <artifactId>spring-cloud-tencent-examples</artifactId>
@@ -35,7 +35,7 @@
         <!-- Project revision -->
         <revision>1.0.0-SNAPSHOT</revision>
 
-        <spring.cloud.tencent.version>1.8.5-2022.0.1</spring.cloud.tencent.version>
+        <spring.cloud.tencent.version>1.10.0-2022.0.1</spring.cloud.tencent.version>
 
         <!-- Spring Cloud -->
         <spring.cloud.version>2022.0.1</spring.cloud.version>
@@ -74,6 +74,10 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
