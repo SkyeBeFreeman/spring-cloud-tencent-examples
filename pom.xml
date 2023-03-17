@@ -35,7 +35,7 @@
         <!-- Project revision -->
         <revision>1.0.0-SNAPSHOT</revision>
 
-        <spring.cloud.tencent.version>1.9.0-2020.0.5-SNAPSHOT</spring.cloud.tencent.version>
+        <spring.cloud.tencent.version>1.10.1-2020.0.5</spring.cloud.tencent.version>
 
         <!-- Spring Cloud -->
         <spring.cloud.version>2020.0.5</spring.cloud.version>
