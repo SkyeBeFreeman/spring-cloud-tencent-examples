@@ -14,12 +14,10 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 package com.skyebefreeman.examples.polaris.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author lepdou 2022-03-10
  */
 @RestController
-@RefreshScope
 public class ConfigController {
 
 	@Value("${timeout:1000}")

@@ -23,6 +23,7 @@
         <module>polaris-ratelimit-example</module>
         <module>polaris-circuitbreaker-example</module>
         <module>polaris-gateway-example</module>
+        <module>polaris-config-data-example</module>
         <module>polaris-config-example</module>
         <module>polaris-router-example</module>
         <module>metadata-transfer-example</module>
@@ -42,13 +43,6 @@
 
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
-    </dependencies>
 
     <dependencyManagement>
         <dependencies>
