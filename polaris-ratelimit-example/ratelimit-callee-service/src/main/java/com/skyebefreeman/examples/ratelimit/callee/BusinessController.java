@@ -26,14 +26,8 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException.TooManyRequests;
@@ -60,20 +54,13 @@ public class BusinessController {
 
 	/**
 	 * Get information.
-	 *
 	 * @return information
 	 */
-	@GetMapping("/info")
+	@RequestMapping("/info")
 	public String info() {
 		return "hello world for ratelimit service " + index.incrementAndGet();
 	}
 
-	/**
-	 * Get information 30 times per 1 second.
-	 *
-	 * @return result of 30 calls.
-	 * @throws InterruptedException exception
-	 */
 	@GetMapping("/invoke")
 	public String invokeInfo() throws InterruptedException {
 		StringBuffer builder = new StringBuffer();
@@ -97,12 +84,12 @@ public class BusinessController {
 			}).start();
 		}
 		count.await();
+		index.set(0);
 		return builder.toString();
 	}
 
 	/**
 	 * Get information with unirate.
-	 *
 	 * @return information
 	 */
 	@GetMapping("/unirate")
