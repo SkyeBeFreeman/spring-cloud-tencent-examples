@@ -43,13 +43,6 @@
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
-    </dependencies>
-
     <dependencyManagement>
         <dependencies>
             <!-- Spring Cloud Tencent Dependencies -->
