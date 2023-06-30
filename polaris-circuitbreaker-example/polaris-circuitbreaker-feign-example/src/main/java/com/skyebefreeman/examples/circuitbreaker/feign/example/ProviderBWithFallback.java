@@ -17,18 +17,23 @@
 
 package com.skyebefreeman.examples.circuitbreaker.feign.example;
 
-import org.springframework.stereotype.Component;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Circuit breaker example callee fallback.
+ * ProviderBWithFallback.
  *
  * @author sean yu
  */
-@Component
-public class ProviderBFallback implements ProviderBWithFallback {
+@FeignClient(name = "polaris-circuitbreaker-callee-service", contextId = "fallback-from-code", fallback = ProviderBFallback.class)
+public interface ProviderBWithFallback {
 
-	@Override
-	public String info() {
-		return "fallback: trigger the refuse for service b";
-	}
+	/**
+	 * Get info of service B.
+	 *
+	 * @return info of service B
+	 */
+	@GetMapping("/example/service/b/info")
+	String info();
+
 }
