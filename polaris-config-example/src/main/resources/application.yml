@@ -5,6 +5,8 @@ spring:
     name: polaris-config-example
   profiles:
     active: abc
+  config:
+    import: optional:polaris
   cloud:
     polaris:
       address: grpc://183.47.111.80:8091
