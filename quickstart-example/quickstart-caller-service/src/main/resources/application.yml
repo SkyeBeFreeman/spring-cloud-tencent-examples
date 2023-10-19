@@ -3,11 +3,9 @@ server:
 spring:
   application:
     name: QuickstartCallerService
-  config:
-    import: optional:polaris
   cloud:
     polaris:
-      address: grpc://183.47.111.80:8091
+      address: grpc://119.91.66.223:8091
       namespace: default
       enabled: true
       discovery:
@@ -16,11 +14,15 @@ spring:
         heartbeat:
           enabled: true
         health-check-url: /quickstart/caller/healthCheck
+      contract:
+        exposure: true
+        report:
+          enabled: false
       circuitbreaker:
         enabled: true
       stat:
         enabled: true
-        port: 28081
+        port: 28082
     #        pushgateway:
     #          enabled: true
     #          address: 127.0.0.1:9091
@@ -41,3 +43,4 @@ management:
       exposure:
         include:
           - polaris-discovery
+          - polaris-circuit-breaker
