@@ -17,18 +17,18 @@
 
 package com.skyebefreeman.examples.quickstart.caller;
 
+import com.tencent.cloud.common.spi.InstanceMetadataProvider;
+
 import org.springframework.stereotype.Component;
 
 /**
- * Quickstart callee feign client fallback.
- *
- * @author Haotian Zhang
+ *@author lepdou 2022-06-29
  */
 @Component
-public class QuickstartCalleeServiceFallback implements QuickstartCalleeService {
+public class CustomMetadataProvider implements InstanceMetadataProvider {
 
 	@Override
-	public String sum(int value1, int value2) {
-		return "sum is 0.";
+	public String getRegion() {
+		return "huadong";
 	}
 }

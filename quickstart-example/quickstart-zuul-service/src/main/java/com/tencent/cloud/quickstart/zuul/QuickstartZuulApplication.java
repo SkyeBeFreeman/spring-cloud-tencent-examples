@@ -15,20 +15,23 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package com.skyebefreeman.examples.quickstart.caller;
+package com.tencent.cloud.quickstart.zuul;
 
-import org.springframework.stereotype.Component;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 /**
- * Quickstart callee feign client fallback.
+ * Zuul application.
  *
  * @author Haotian Zhang
  */
-@Component
-public class QuickstartCalleeServiceFallback implements QuickstartCalleeService {
+@SpringBootApplication
+@EnableZuulProxy
+public class QuickstartZuulApplication {
 
-	@Override
-	public String sum(int value1, int value2) {
-		return "sum is 0.";
+	public static void main(String[] args) {
+		SpringApplication.run(QuickstartZuulApplication.class, args);
 	}
+
 }
