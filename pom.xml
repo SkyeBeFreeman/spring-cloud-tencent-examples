@@ -30,7 +30,7 @@
         <!-- Project revision -->
         <revision>1.0.0-SNAPSHOT</revision>
 
-        <spring.cloud.tencent.version>1.12.2-2022.0.4</spring.cloud.tencent.version>
+        <spring.cloud.tencent.version>1.12.4-2022.0.4</spring.cloud.tencent.version>
 
         <!-- Spring Cloud -->
         <spring.cloud.version>2022.0.4</spring.cloud.version>
