@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: QuickStartGatewayService
+  config:
+    import: optional:polaris
   cloud:
     tencent:
       plugin:
