@@ -19,7 +19,7 @@
     <description>Examples of Spring Cloud Tencent</description>
 
     <modules>
-        <module>polaris-config-data-example</module>
+        <module>multiple-discovery-example</module>
         <module>metadata-transfer-example</module>
         <module>polaris-router-grayrelease-example</module>
         <module>polaris-router-featureenv-example</module>
@@ -30,7 +30,7 @@
         <!-- Project revision -->
         <revision>1.0.0-SNAPSHOT</revision>
 
-        <spring.cloud.tencent.version>1.11.7-Hoxton.SR12</spring.cloud.tencent.version>
+        <spring.cloud.tencent.version>1.12.4-Hoxton.SR12</spring.cloud.tencent.version>
 
         <!-- Spring Cloud -->
         <spring.cloud.version>Hoxton.SR12</spring.cloud.version>

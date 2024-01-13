@@ -15,18 +15,20 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package com.skyebefreeman.examples.polaris.config.example;
+package com.tencent.cloud.multiple.discovery.nacos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author wlx
+ * Circuit breaker example callee application.
+ *
+ * @author Haotian Zhang
  */
 @SpringBootApplication
-public class PolarisConfigDataExampleApplication {
+public class NacosCalleeServiceA {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PolarisConfigDataExampleApplication.class, args);
+		SpringApplication.run(NacosCalleeServiceA.class, args);
 	}
 }

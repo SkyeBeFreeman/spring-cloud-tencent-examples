@@ -13,43 +13,42 @@
  * under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
+ *
  */
-package com.skyebefreeman.examples.polaris.config.example;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.core.env.Environment;
+package com.tencent.cloud.multiple.discovery.nacos;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * the endpoint for get config.
+ * Service B Controller.
  *
- * @author lepdou 2022-03-10
+ * @author Haotian Zhang
  */
 @RestController
-@RefreshScope
-public class ConfigController {
+@RequestMapping("/example/service/b")
+public class NacosCalleeServiceBController {
 
-	@Value("${timeout:1000}")
-	private int timeout;
-
-	@Autowired
-	private Person person;
-
-	@Autowired
-	private Environment environment;
-
-	@GetMapping("/timeout")
-	public int timeout() {
-		environment.getProperty("timeout", "1000");
-		return timeout;
+	/**
+	 * Get service information.
+	 *
+	 * @return service information
+	 */
+	@GetMapping("/info")
+	@ResponseStatus(code = HttpStatus.BAD_GATEWAY)
+	public String info() {
+		return "BAD_GATEWAY ! from service B2";
 	}
 
-	@GetMapping("/person")
-	public String person() {
-		return person.toString();
+	@GetMapping("/health")
+	@ResponseStatus(value = HttpStatus.BAD_GATEWAY, reason = "failed for call my service")
+	public String health() {
+		System.out.println("health check: 502 instance");
+		return "hello world ! I'm a service B1";
 	}
 
 }
