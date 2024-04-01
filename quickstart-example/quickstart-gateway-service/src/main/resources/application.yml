@@ -1,10 +1,10 @@
 server:
   port: 48081
 spring:
-  config:
-    import: polaris
   application:
     name: QuickStartGatewayService
+  config:
+    import: optional:polaris
   cloud:
     tencent:
       plugin:

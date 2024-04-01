@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: QuickstartCallerService
+  config:
+    import: optional:polaris
   cloud:
     polaris:
       address: grpc://119.91.66.223:8091
