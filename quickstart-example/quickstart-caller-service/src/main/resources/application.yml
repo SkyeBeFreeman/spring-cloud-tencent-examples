@@ -46,3 +46,6 @@ management:
         include:
           - polaris-discovery
           - polaris-circuit-breaker
+logging:
+  file:
+    name: /sct-demo-logs/${spring.application.name}/root.log

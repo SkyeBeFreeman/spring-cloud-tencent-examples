@@ -48,3 +48,6 @@ management:
           - polaris-config
 label:
   key-value: user:zhangsan
+logging:
+  file:
+    name: /sct-demo-logs/${spring.application.name}/root.log
