@@ -28,9 +28,9 @@
 
     <properties>
         <!-- Project revision -->
-        <revision>1.0.0-SNAPSHOT</revision>
+        <revision>1.14.0-Hoxton.SR12-RC3</revision>
 
-        <spring.cloud.tencent.version>1.13.1-Hoxton.SR12</spring.cloud.tencent.version>
+        <spring.cloud.tencent.version>${revision}</spring.cloud.tencent.version>
 
         <!-- Spring Cloud -->
         <spring.cloud.version>Hoxton.SR12</spring.cloud.version>
