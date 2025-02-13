@@ -49,7 +49,4 @@ management:
 label:
   key-value: user2:lisi
 logging:
-  file:
-    name: /sct-demo-logs/${spring.application.name}/root.log
-  level:
-    root: INFO
+  config: classpath:log4j2.xml
