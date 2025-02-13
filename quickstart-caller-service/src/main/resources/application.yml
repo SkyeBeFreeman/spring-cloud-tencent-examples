@@ -1,0 +1,57 @@
+server:
+  port: 48082
+spring:
+  application:
+    name: QuickstartCallerService
+  config:
+    import: optional:polaris
+  cloud:
+    polaris:
+      address: grpc://119.91.66.223:8091
+      namespace: default
+      enabled: true
+      discovery:
+        enabled: true
+        register: true
+        heartbeat:
+          enabled: true
+        health-check-url: /quickstart/caller/healthCheck
+        zero-protection:
+          enabled: true
+          is-need-test-connectivity: true
+      contract:
+        exposure: true
+        report:
+          enabled: true
+      circuitbreaker:
+        enabled: true
+      admin:
+        port: 28082
+      stat:
+        enabled: true
+    #        pushgateway:
+    #          enabled: true
+    #          address: 127.0.0.1:9091
+    tencent:
+      rpc-enhancement:
+        enabled: true
+        reporter:
+          enabled: true
+          ignore-internal-server-error: true
+          series: server_error
+          statuses: gateway_timeout, bad_gateway, service_unavailable
+feign:
+  hystrix:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - polaris-discovery
+          - polaris-circuit-breaker
+logging:
+  file:
+    name: /sct-demo-logs/${spring.application.name}/root.log
+  level:
+    root: INFO
